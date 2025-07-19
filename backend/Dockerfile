@@ -21,7 +21,8 @@ WORKDIR /home/node/app
 RUN npm i -g pm2
 
 # Copy package.json, package-lock.json and process.yml
-COPY package*.json process.yml ./
+COPY package*.json ./
+
 
 # Switch to user node
 #USER node
