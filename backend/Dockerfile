@@ -10,7 +10,8 @@ RUN apk --no-cache -U upgrade
 # Prepare destination directory and ensure user node owns it
 RUN mkdir -p /home/node/app
 
-RUN touch /logs/app.log
+# ✅ Create /logs directory and log file properly
+RUN mkdir -p /logs && touch /logs/app.log
 
 # Set CWD
 WORKDIR /home/node/app
