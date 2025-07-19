@@ -1,7 +1,5 @@
 # Final stage
-
 FROM node:16-alpine
-
 
 # Set node environment to production
 ENV NODE_ENV production
@@ -20,21 +18,14 @@ WORKDIR /home/node/app
 # Install PM2
 RUN npm i -g pm2
 
-# Copy package.json, package-lock.json and process.yml
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-
-# Switch to user node
-#USER node
-
-# Install libraries as user node
-#RUN npm i --only=production
+# Install production dependencies
 RUN npm ci
 
-# Copy js files and change ownership to user node
-#COPY --chown=node:node . .
-COPY  . .
-# Open desired port
+# Copy the rest of your app
+COPY . .
 
-# Use PM2 to run the application as stated in config file
-ENTRYPOINT ["pm2-runtime", "./process.yml"] 
+# Start the app using PM2 directly without process.yml
+ENTRYPOINT ["pm2-runtime", "index.js"]
